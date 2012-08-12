@@ -83,7 +83,11 @@
     [self.programStack addObject:operandObject];
 }
 
-- (double) performOperation:(NSString *) operation
+- (void) pushVariable:(NSString*) variable {
+    [self.programStack addObject:variable];
+}
+
+- (double) performOperation:(NSString*) operation
 {
     [self.programStack addObject:operation];
     return [CalculatorBrain runProgram:self.program];

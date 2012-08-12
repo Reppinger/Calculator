@@ -30,19 +30,27 @@
 
 
 - (IBAction)digitPressed:(UIButton *)sender {
-    
     NSString *digit = [sender currentTitle];
     [self updateDisplay:digit];
 }
 
+- (IBAction)variablePressed:(UIButton *)sender {
+    NSString *variable = [sender currentTitle];
+    [self updateDisplay:variable];
+}
+
 - (IBAction)enterPressed {
-    NSString *currentDisplay = [self.display.text stringByAppendingString:@" "];
-    [self.brain pushOperand:[currentDisplay doubleValue]];
-    [self appendToEntries:currentDisplay];
+    NSString *currentDisplay = self.display.text;
+    if ([self isVariableDisplayed]) {
+        //[self.brain pushVariable:currentDisplay];
+    } else {
+        [self.brain pushOperand:[currentDisplay doubleValue]];
+    }
+    [self appendToEntries:[currentDisplay stringByAppendingString:@" "]];
     self.userIsEnteringNumber = NO;
 }
 
-- (IBAction)operationPressed:(id)sender {
+- (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsEnteringNumber) {
         [self enterPressed];
     }
@@ -74,6 +82,10 @@
     }
 }
 
+- (BOOL) isVariableDisplayed {
+    NSString *currentDisplay = self.display.text;
+    return (currentDisplay == @"x") || (currentDisplay == @"a") || (currentDisplay == @"b");
+}
 
 - (BOOL) isDecimalPoint:(NSString *)digit{
     NSRange range = [digit rangeOfString:@"."];
