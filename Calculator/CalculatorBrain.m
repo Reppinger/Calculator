@@ -62,7 +62,7 @@
 }
 
 + (NSString *) descriptionOfProgram:(id)program {
-    return @"Assignment II";
+    return @"Assignment II continued";
 }
 
 - (NSMutableArray *) programStack
